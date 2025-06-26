@@ -15,14 +15,17 @@
 int print_hexadecimal(unsigned long n, int lowercase)
 {
     char *digits;
+    int count = 0;
 
     if (lowercase)
-    digits = "0123456789abcdef";
+        digits = "0123456789abcdef";
     else
-    digits = "0123456789ABCDEF";
+        digits = "0123456789ABCDEF";
 
     if (n >= 16)
-        return print_hexadecimal(n / 16, lowercase) + write(1, &digits[n % 16], 1);
-    else
-        return write(1, &digits[n], 1);
+        count += print_hexadecimal(n / 16, lowercase);
+    char c = digits[n % 16];
+    count += write(1, &c, 1);
+
+    return (count);
 }

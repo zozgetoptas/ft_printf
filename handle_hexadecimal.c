@@ -11,9 +11,14 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#include <unistd.h>
 
-void handle_hexadecimal(va_list *args, int lowercase, int *total_len)
+int handle_hexadecimal(va_list *args, int lowercase)
 {
-	unsigned int n = va_arg(*args, unsigned int);
-	(*total_len) += print_hexadecimal(n, lowercase);
+    unsigned int n = va_arg(*args, unsigned int);
+
+    if (n == 0)
+        return write(1, "0", 1);
+
+    return print_hexadecimal(n, lowercase);
 }

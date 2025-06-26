@@ -11,13 +11,17 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#include <unistd.h>
 
-void handle_str(va_list *args, int *total_len)
+int handle_str(va_list *args)
 {
 	char *str = va_arg(*args, char *);
+	int len = 0;
 	if (!str)
 		str = "(null)";
-	ft_putstr_fd(str, 1);
-	while (*str++)
-		(*total_len)++;
+	while (str[len])
+		len++;
+	if (write(1, str, len) == -1)
+        return (-1);
+    return (len);
 }

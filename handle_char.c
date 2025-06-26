@@ -10,11 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <unistd.h>
 #include "ft_printf.h"
 
-void	handle_char(va_list *args, int *total_len)
+int	handle_char(va_list *args)
 {
 	char c = (char)va_arg(*args, int);
-	ft_putchar_fd(c, 1);
-	(*total_len)++;
+	 if (write(1, &c, 1) == -1)
+        return (-1);
+    return (1);
 }

@@ -11,26 +11,19 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#include <unistd.h>
 
-void handle_ptr(va_list *args, int *total_len)
+int handle_ptr(va_list *args)
 {
-	void *ptr = va_arg(*args, void *);
+    void *ptr = va_arg(*args, void *);
 
-	if (ptr == NULL)
-    {
-        ft_putstr_fd("(nil)", 1);
-        *total_len += 5;
-    }
-    else
-    {
-        unsigned long long addr = (unsigned long long)ptr;
-        int len;
+    if (ptr == NULL)
+        return write(1, "(nil)", 5);
 
-        ft_putstr_fd("0x", 1);
-        ft_putnbr_base(addr, "0123456789abcdef");
-        
-        len = ft_num_len_base(addr, 16) + 2;
-        *total_len += len;
-    }
+    int len = 0;
+    len += write(1, "0x", 2);
+    len += print_hexadecimal((unsigned long)ptr, 1);
+
+    return (len);
 }
 

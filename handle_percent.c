@@ -11,9 +11,11 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#include <unistd.h>
 
-void handle_percent(int *total_len)
+int handle_percent(void)
 {
-	ft_putchar_fd('%', 1);
-	(*total_len)++;
+    if (write(1, "%", 1) == -1)
+        return (-1);
+    return (1);
 }

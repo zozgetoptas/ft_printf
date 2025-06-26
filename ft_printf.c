@@ -10,53 +10,79 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdarg.h>
 #include <unistd.h>
 #include "ft_printf.h"
 
-static void	format_handler(const char specifier, va_list *args, int* total_len)
+static int format_check(char c)
 {
-	if (specifier == '%')
-		handle_percent(total_len);
-	else if (specifier == 'c')
-		handle_char(args, total_len);
-	else if (specifier == 's')
-		handle_str(args, total_len);
-	else if (specifier == 'p')
-		handle_ptr(args, total_len);
-	else if (specifier == 'd' || specifier == 'i')
-		handle_number(args,total_len);
-	else if (specifier == 'u')
-		handle_unsigned(args,total_len);
-	else if (specifier == 'x')
-		handle_hexadecimal(args,0,total_len);
-	else if (specifier == 'X')
-		handle_hexadecimal(args,1,total_len);
+    return (c == '%' || c == 'c' || c == 's' || c == 'p' || 
+            c == 'd' || c == 'i' || c == 'u' || c == 'x' || c == 'X');
 }
-int		ft_printf(const char *format, ...)
-{
-	va_list 		args;
-	int     		i;
-	int     		printed;
 
+static int	format_handler(const char specifier, va_list *args)
+{
+	 if (specifier == '%')
+        return handle_percent();
+    else if (specifier == 'c')
+        return handle_char(args);
+    else if (specifier == 's')
+        return handle_str(args);
+    else if (specifier == 'p')
+        return handle_ptr(args);
+    else if (specifier == 'd' || specifier == 'i')
+        return handle_number(args);
+    else if (specifier == 'u')
+        return handle_unsigned(args);
+    else if (specifier == 'x')
+        return handle_hexadecimal(args, 1);
+    else if (specifier == 'X')
+        return handle_hexadecimal(args, 0);
+    return (0);
+}
+
+static int	handle_format_or_percent(const char *format, int *i, va_list *args)
+{
+	int	ret;
+
+	if (format_check(format[*i]))
+	{
+		ret = format_handler(format[*i], args);
+		(*i)++;
+		return (ret);
+	}
+	else
+	{
+		if (write(1, "%", 1) == -1)
+			return (-1);
+		(*i)++;
+		return (1);
+	}
+}
+
+int	ft_printf(const char *format, ...)
+{
+	va_list	args;
+	int		i;
+	int		printed;
+	int		ret;
+
+	if (!format)
+		return (-1);
 	i = 0;
 	printed = 0;
-
 	va_start(args, format);
 	while (format[i])
 	{
 		if (format[i] == '%')
 		{
 			i++;
-			format_handler(format[i], &args, &printed);
-			i++;
+			ret = handle_format_or_percent(format, &i, &args);
 		}
 		else
-		{
-			write(1, &format[i], 1);
-			printed++;
-			i++;
-		}
+			ret = write(1, &format[i++], 1);
+		if (ret == -1)
+			return (va_end(args), -1);
+		printed += ret;
 	}
 	va_end(args);
 	return (printed);

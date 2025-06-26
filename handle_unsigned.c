@@ -12,8 +12,13 @@
 
 #include "ft_printf.h"
 
-void handle_unsigned(va_list *args, int *total_len)
+int handle_unsigned(va_list *args)
 {
 	unsigned int n = va_arg(*args, unsigned int);
-	(*total_len) += printed_unsigned_count(n);
+	int printed = print_unsigned_number(n);
+
+	if (printed == -1)
+		return (-1);
+	return (printed);
 }
+
