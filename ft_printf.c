@@ -15,7 +15,7 @@
 
 static int format_check(char c)
 {
-    return (c == '%' || c == 'c' || c == 's' || c == 'p' || 
+    return(c == '%' || c == 'c' || c == 's' || c == 'p' || 
             c == 'd' || c == 'i' || c == 'u' || c == 'x' || c == 'X');
 }
 
@@ -47,7 +47,6 @@ static int	handle_format_or_percent(const char *format, int *i, va_list *args)
 	if (format_check(format[*i]))
 	{
 		ret = format_handler(format[*i], args);
-		(*i)++;
 		return (ret);
 	}
 	else
@@ -81,7 +80,10 @@ int	ft_printf(const char *format, ...)
 		else
 			ret = write(1, &format[i++], 1);
 		if (ret == -1)
-			return (va_end(args), -1);
+		{
+			va_end(args);
+			return (-1);
+		}
 		printed += ret;
 	}
 	va_end(args);

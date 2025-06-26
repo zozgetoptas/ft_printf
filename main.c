@@ -15,7 +15,7 @@
 
 int main(void)
 {
-    char c = 'a';
+    /* char c = 'a';
     char *str = "zozgetoptas";
     void *ptr = (void *)str;
     int d = -3;
@@ -44,7 +44,9 @@ int main(void)
     printf("unsigned: %u\n", u);
     printf("hexadecimal (lower): %x\n", x);
     printf("hexadecimal (upper): %X\n", X);
-    printf("percent: %%\n");
+    printf("percent: %%\n"); */
+    ft_printf("%q\n");
+    printf("%q");
 	
 
     return 0;
