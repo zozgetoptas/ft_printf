@@ -6,35 +6,37 @@
 /*   By: ztoptas <ztoptas@student.42kocaeli.com.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 15:21:43 by ztoptas           #+#    #+#             */
-/*   Updated: 2025/06/27 12:53:01 by ztoptas          ###   ########.fr       */
+/*   Updated: 2025/06/27 13:35:18 by ztoptas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include "ft_printf.h"
 
-static int	format_handler(const char specifier, va_list *args)
+static int	format_handler(const char conversion_specifier, va_list *args)
 {
-	if (specifier == '%')
+	if (conversion_specifier == '%')
 		return (handle_percent());
-	else if (specifier == 'c')
+	else if (conversion_specifier == 'c')
 		return (handle_char(args));
-	else if (specifier == 's')
+	else if (conversion_specifier == 's')
 		return (handle_str(args));
-	else if (specifier == 'p')
+	else if (conversion_specifier == 'p')
 		return (handle_ptr(args));
-	else if (specifier == 'd' || specifier == 'i')
+	else if (conversion_specifier == 'd' || conversion_specifier == 'i')
 		return (handle_number(args));
-	else if (specifier == 'u')
+	else if (conversion_specifier == 'u')
 		return (handle_unsigned(args));
-	else if (specifier == 'x')
+	else if (conversion_specifier == 'x')
 		return (handle_hexadecimal(args, 1));
-	else if (specifier == 'X')
+	else if (conversion_specifier == 'X')
 		return (handle_hexadecimal(args, 0));
 	return (0);
 }
 
-static int	handle_format_or_percent(const char *format, int *i, va_list *args)
+static int	process_conversion_specifier(const char *format,
+										int *i,
+										va_list *args)
 {
 	int		ret;
 	char	c;
@@ -55,7 +57,7 @@ static int	handle_format_or_percent(const char *format, int *i, va_list *args)
 	}
 }
 
-static int	handle_printf_loop(const char *format, va_list *args)
+static int	printf_loop(const char *format, va_list *args)
 {
 	int	i;
 	int	ret;
@@ -68,7 +70,7 @@ static int	handle_printf_loop(const char *format, va_list *args)
 		if (format[i] == '%')
 		{
 			i++;
-			ret = handle_format_or_percent(format, &i, args);
+			ret = process_conversion_specifier(format, &i, args);
 		}
 		else
 			ret = write(1, &format[i++], 1);
@@ -87,7 +89,7 @@ int	ft_printf(const char *format, ...)
 	if (!format)
 		return (-1);
 	va_start(args, format);
-	printed = handle_printf_loop(format, &args);
+	printed = printf_loop(format, &args);
 	va_end(args);
 	return (printed);
 }

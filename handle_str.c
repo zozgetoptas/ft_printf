@@ -6,11 +6,11 @@
 /*   By: ztoptas <ztoptas@student.42kocaeli.com.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 10:40:32 by ztoptas           #+#    #+#             */
-/*   Updated: 2025/06/27 12:59:57 by ztoptas          ###   ########.fr       */
+/*   Updated: 2025/06/27 14:25:10 by ztoptas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include <stdarg.h>
 #include <unistd.h>
 
 int	handle_str(va_list *args)
