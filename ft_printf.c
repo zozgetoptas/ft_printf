@@ -6,7 +6,7 @@
 /*   By: ztoptas <ztoptas@student.42kocaeli.com.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 15:21:43 by ztoptas           #+#    #+#             */
-/*   Updated: 2025/06/27 13:35:18 by ztoptas          ###   ########.fr       */
+/*   Updated: 2025/06/27 16:45:40 by ztoptas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,7 @@ static int	format_handler(const char conversion_specifier, va_list *args)
 }
 
 static int	process_conversion_specifier(const char *format,
-										int *i,
-										va_list *args)
+										int *i, va_list *args)
 {
 	int		ret;
 	char	c;
