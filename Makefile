@@ -1,6 +1,6 @@
 NAME = libftprintf.a
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -I./libft
+CFLAGS = -Wall -Wextra -Werror
 
 
 SRC = ft_printf.c \
@@ -12,7 +12,7 @@ SRC = ft_printf.c \
       handle_hexadecimal.c \
       handle_percent.c \
       print_unsigned_number.c \
-	  print_hexadecimal.c
+	print_hexadecimal.c
 
 OBJ = $(SRC:.c=.o)
 
