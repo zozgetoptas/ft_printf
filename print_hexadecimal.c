@@ -12,20 +12,29 @@
 
 #include <unistd.h>
 
-int	print_hexadecimal(unsigned long n, int lowercase)
+int	print_hexadecimal(unsigned long n, int letter_case)
 {
 	char	*digits;
 	int		count;
 	char	c;
+	int		ret;
 
 	count = 0;
-	if (lowercase)
+	if (letter_case)
 		digits = "0123456789abcdef";
 	else
 		digits = "0123456789ABCDEF";
 	if (n >= 16)
-		count += print_hexadecimal(n / 16, lowercase);
+	{
+		ret = print_hexadecimal(n / 16, letter_case);
+		if (ret == -1)
+			return (-1);
+		count += ret;
+	}
 	c = digits[n % 16];
-	count += write(1, &c, 1);
+	ret = write(1, &c, 1);
+	if (ret == -1)
+		return (-1);
+	count += ret;
 	return (count);
 }

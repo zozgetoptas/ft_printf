@@ -27,7 +27,7 @@ int	handle_number(va_list *args)
 		if (ret == -1)
 			return (-1);
 		printed += ret;
-		ret = print_unsigned_number((unsigned int)(-n));
+		ret = print_unsigned_number((unsigned int)(-(long)n));
 	}
 	else
 	{

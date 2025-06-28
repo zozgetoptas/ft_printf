@@ -13,12 +13,12 @@
 #include "ft_printf.h"
 #include <unistd.h>
 
-int	handle_hexadecimal(va_list *args, int lowercase)
+int	handle_hexadecimal(va_list *args, int letter_case)
 {
 	unsigned int	n;
 
 	n = va_arg(*args, unsigned int);
 	if (n == 0)
 		return (write(1, "0", 1));
-	return (print_hexadecimal(n, lowercase));
+	return (print_hexadecimal(n, letter_case));
 }

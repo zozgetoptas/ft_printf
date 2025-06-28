@@ -40,6 +40,8 @@ static int	process_conversion_specifier(const char *format,
 	int		ret;
 	char	c;
 
+	if (format[*i] == '\0')
+		return (-1);
 	c = format[*i];
 	if (c == '%' || c == 'c' || c == 's' || c == 'p'
 		|| c == 'd' || c == 'i' || c == 'u' || c == 'x' || c == 'X')

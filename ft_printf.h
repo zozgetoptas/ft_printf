@@ -21,9 +21,9 @@ int	handle_str(va_list *args);
 int	handle_ptr(va_list *args);
 int	handle_number(va_list *args);
 int	handle_unsigned(va_list *args);
-int	handle_hexadecimal(va_list *args, int lowercase);
+int	handle_hexadecimal(va_list *args, int letter_case);
 int	handle_percent(void);
-int	print_hexadecimal(unsigned long n, int lowercase);
+int	print_hexadecimal(unsigned long n, int letter_case);
 int	print_unsigned_number(unsigned int n);
 
 #endif

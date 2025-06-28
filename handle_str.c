@@ -19,9 +19,13 @@ int	handle_str(va_list *args)
 	int		len;
 
 	str = va_arg(*args, char *);
-	len = 0;
 	if (!str)
-		str = "(null)";
+	{
+		if (write(1, "(null)", 6) == -1)
+			return (-1);
+		return (6);
+	}
+	len = 0;
 	while (str[len])
 		len++;
 	if (write(1, str, len) == -1)
