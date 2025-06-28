@@ -15,9 +15,9 @@
 
 int	handle_char(va_list *args)
 {
-	char	c;
+	unsigned char	c;
 
-	c = (char)va_arg(*args, int);
+	c = (unsigned char)va_arg(*args, int);
 	if (write(1, &c, 1) == -1)
 		return (-1);
 	return (1);

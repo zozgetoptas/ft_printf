@@ -45,6 +45,7 @@ static int	process_conversion_specifier(const char *format,
 		|| c == 'd' || c == 'i' || c == 'u' || c == 'x' || c == 'X')
 	{
 		ret = format_handler(c, args);
+		(*i)++;
 		return (ret);
 	}
 	else
